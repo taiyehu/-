@@ -1,0 +1,2 @@
+id,name,effect,art_path,art_fit,art_focus_x,art_focus_y
+mis1,社长造访,所有队伍出价竞标并失去等价金钱，出价最低的队失去2点积分,art/mis1.png,contain,0.5,0.5

@@ -1,0 +1,13 @@
+id,name,move,cost,game_type,effect,condition,art_path,art_fit,art_focus_x,art_focus_y
+example,示例卡,3,60,Arcaea,这里填写卡牌效果。文字较长时会自动换行并调整字号。,这里填写使用条件；留空则该文本框不显示内容。,art/example.png,contain,0.5,0.5
+example-phigros,示例卡二,2,80,Phigros,这里填写卡牌效果。,这里填写使用条件。,,cover,0.5,0.5
+example-fanshi,示例卡三,6,100,fanshi,这里填写卡牌效果。,这里填写使用条件。,,cover,0.5,0.5
+example-question,问号示例,7,60,Arcaea,这里填写卡牌效果。,这里填写使用条件。,,cover,0.5,0.5
+card1,回收机,1,300,Phigros,获得4点积分,游玩Rubbish Sorting IN难度达到1000000分,art/hand1.png,cover,0.5,0.5
+card2,遗产,6,0,Arcaea,收入格永久收入+10,游玩Lost Civilization BYD难度，lost数小于等于2,art/hand2.png,cover,0.5,0.5
+card3,巧夺先机,3,100,Phigros,瞬移至任意站点或建筑,游玩Temporal Shifting IN难度达到full combo,art/hand3.png,cover,0.5,0.5
+card4,幸运药水,3,0,fanshi,当你必须获得厄运时抵挡一次厄运,游玩Blessed Bleath MSV难度达到full combo,art/hand4.png,cover,0.5,0.5
+card5,言而无信,4,40,Arcaea,获得1点积分，额外移动一次,游玩Breach of Faith BYD难度达到990w分,art/hand5.png,cover,0.5,0.5
+card6,机械帮手,2,700,fanshi,获得9点积分，到达站点或建筑但无法使用卡牌时可以选择丢弃一张手牌,游玩Turning Point MSV难度达到inf+,art/hand6.png,cover,0.5,0.5
+card7,装腔作势,7,0,random,抵消一次事件格的事件,（骰子决定）走X步或获得X分+70X块钱,art/hand7.jpg,cover,0.5,0.5
+
