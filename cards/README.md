@@ -2,6 +2,14 @@
 
 将每张卡的信息写在 CSV 的一行。脚本可制作三种卡：手牌使用骰子、费用、游戏类型图标、效果、条件和卡名；事件牌与厄运牌使用上方插图、效果和卡名。三种卡分别使用 `template.png`、`templates/event.png`、`templates/misfortune.png`。
 
+游戏 demo 使用 `hand.csv`、`events.csv`、`misfortunes.csv` 作为正式牌面数据。这三份文件在原有制卡列之外增加 `effect_type`、`effect_value` 和 `quantity`；制卡脚本会忽略额外列。编辑后可用下方命令重新生成图片，随后重启 demo 服务器以载入新数据。
+
+```powershell
+python cards/generate_cards.py --data cards/hand.csv
+python cards/generate_cards.py --kind event --data cards/events.csv
+python cards/generate_cards.py --kind misfortune --data cards/misfortunes.csv
+```
+
 ## 使用
 
 ```powershell

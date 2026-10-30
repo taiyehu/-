@@ -1,0 +1,2 @@
+id,name,effect,art_path,art_fit,art_focus_x,art_focus_y,effect_type,effect_value,quantity
+event1,社团赞助,本队+200金钱,art/event1.jpg,cover,0.5,0.5,money,200,1

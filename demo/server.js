@@ -15,15 +15,23 @@ function roomCode(){let code;do{code=crypto.randomBytes(3).toString('hex').toUpp
 const server=http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');
   if(!url.pathname.startsWith('/api/')){
+    const image=url.pathname.match(/^\/cards\/output\/([a-zA-Z0-9_-]+)\.png$/);
+    if(image){
+      const full=path.resolve(__dirname,'..','cards','output',image[1]+'.png');
+      fs.readFile(full,(err,data)=>{if(err){res.writeHead(404);return res.end();}res.writeHead(200,{'content-type':'image/png','cache-control':'public, max-age=3600'});res.end(data);});return;
+    }
     const file=staticFiles[url.pathname];if(!file){res.writeHead(404);return res.end();}
     const full=path.resolve(root,file);fs.readFile(full,(err,data)=>{if(err){res.writeHead(404);return res.end();}res.writeHead(200,{'content-type':types[path.extname(full)]});res.end(data);});return;
   }
   try{
     if(req.method==='POST'&&url.pathname==='/api/rooms'){
-      const room=game.createRoom();room.code=roomCode();rooms.set(room.code,room);
+      const b=await body(req);
+      if(b.seed!==undefined&&(typeof b.seed!=='string'||b.seed.length>80))throw Error('测试种子必须是 80 字以内的文字');
+      const seed=b.seed?.trim()||null;
+      const room=game.createRoom({seed,testMode:b.testMode===true,initialMoney:b.initialMoney,initialIncome:b.initialIncome});room.code=roomCode();rooms.set(room.code,room);
       return send(res,201,{code:room.code,token:room.hostToken});
     }
-    const m=url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|move|score|battle))?$/);
+    const m=url.pathname.match(/^\/api\/rooms\/([A-F0-9]{6})(?:\/(join|roll|use-card|skip-use|resolve-challenge|teleport|extra-move|discard-card|bid|misfortune-target|misfortune-pick|move|end-turn|score|battle|reset))?$/);
     if(!m) return send(res,404,{error:'房间接口不存在'});
     const room=rooms.get(m[1]);if(!room)return send(res,404,{error:'房间不存在或服务器已重启'});
     if(req.method==='POST'&&m[2]==='join'){
@@ -33,9 +41,21 @@ const server=http.createServer(async(req,res)=>{
     if(req.method==='GET'&&!m[2])return send(res,200,game.state(room,who));
     if(req.method==='POST'){
       const b=await body(req);
-      if(m[2]==='move')game.move(room,who,b.cardId,b.route);
+      if(m[2]==='roll')game.roll(room,who,b.cardId);
+      else if(m[2]==='use-card')game.useCard(room,who,b.cardId);
+      else if(m[2]==='skip-use')game.skipUse(room,who);
+      else if(m[2]==='resolve-challenge')game.resolveChallenge(room,who,b.team,b.success);
+      else if(m[2]==='teleport')game.teleport(room,who,b.node);
+      else if(m[2]==='extra-move')game.extraMove(room,who,b.cardId,b.route);
+      else if(m[2]==='discard-card')game.discardCard(room,who,b.cardId);
+      else if(m[2]==='bid')game.bid(room,who,b.amount);
+      else if(m[2]==='misfortune-target')game.misfortuneTarget(room,who,b.target);
+      else if(m[2]==='misfortune-pick')game.misfortunePick(room,who,b.index);
+      else if(m[2]==='move')game.move(room,who,b.cardId,b.route);
+      else if(m[2]==='end-turn')game.endTurn(room,who);
       else if(m[2]==='score')game.score(room,who,b.team,b.value);
       else if(m[2]==='battle')game.battle(room,who,b.id,b.winner);
+      else if(m[2]==='reset')game.reset(room,who);
       else return send(res,404,{error:'操作不存在'});
       return send(res,200,game.state(room,who));
     }

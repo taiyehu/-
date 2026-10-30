@@ -1,0 +1,8 @@
+id,name,move,cost,game_type,effect,condition,art_path,art_fit,art_focus_x,art_focus_y,effect_type,effect_value,quantity
+card1,回收机,1,300,Phigros,获得4点积分,游玩Rubbish Sorting IN难度达到1000000分,art/hand1.png,cover,0.5,0.5,score,4,1
+card2,遗产,6,0,Arcaea,收入格永久收入+10,游玩Lost Civilization BYD难度，lost数小于等于2,art/hand2.png,cover,0.5,0.5,income,10,1
+card3,巧夺先机,3,100,Phigros,瞬移至任意站点或建筑,游玩Temporal Shifting IN难度达到full combo,art/hand3.png,cover,0.5,0.5,teleport,0,1
+card4,幸运药水,3,0,fanshi,当你必须获得厄运时抵挡一次厄运,游玩Blessed Bleath MSV难度达到full combo,art/hand4.png,cover,0.5,0.5,shield_misfortune,1,1
+card5,言而无信,4,40,Arcaea,获得1点积分，额外移动一次,游玩Breach of Faith BYD难度达到990w分,art/hand5.png,cover,0.5,0.5,score_extra_move,1,1
+card6,机械帮手,2,700,fanshi,获得9点积分，到达站点或建筑但无法使用卡牌时可以选择丢弃一张手牌,游玩Turning Point MSV难度达到inf+,art/hand6.png,cover,0.5,0.5,score_optional_discard,9,1
+card7,装腔作势,7,0,random,抵消一次事件格的事件,（骰子决定）走X步或获得X分+70X块钱,art/hand7.jpg,cover,0.5,0.5,event_cancel_random,1,1
